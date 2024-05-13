@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@400..900&family=Pacifico&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-
+body {
+  height: 100vh;
+  margin: 0;
+}
 .home-page {
   height: 100vh;
   background-size: cover; /* Cover ensures the image covers the entire div */
@@ -70,8 +73,8 @@
   align-items: center;
 }
 .square {
-  width: clamp(35px, 3.25vw, 500px);
-  height: clamp(35px, 3.25vw, 500px);
+  width: clamp(30px, 9.5vw, 500px);
+  height: clamp(30px, 9.5vw, 500px);
   border: 1px solid white;
 }
 .headline {
@@ -80,4 +83,28 @@
   margin: 20px;
   display: flex;
   flex-direction: column;
+}
+.popUp {
+  display: flex;
+  flex-direction: column;
+  background-color: #494953;
+  height: 50%;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 90%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 12px;
+}
+.board {
+  display: flex;
+}
+.chooseHead {
+  font-family: 'Lato', sans-serif;
+  font-weight: bold;
+  font-size: 2rem;
+  text-align: center;
+  color: white;
 }

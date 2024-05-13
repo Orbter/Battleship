@@ -12,4 +12,4 @@ function homepage() {
   logo.style.backgroundClip = 'text';
 }
 homepage();
-createPlayerChoice('amit');
+//createPlayerChoice('amit');
