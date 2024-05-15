@@ -53,6 +53,12 @@ function GameBoard() {
       board[(coordinates[0], coordinates[1])] = 2;
       return place.isSunk();
     },
+    getAllShips() {
+      return allShips;
+    },
+    getBoard() {
+      return board;
+    },
   };
 }
 export { GameBoard };
