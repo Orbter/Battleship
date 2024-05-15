@@ -59,6 +59,9 @@ function GameBoard() {
     getBoard() {
       return board;
     },
+    computerAttack() {
+      let doesMiss = true;
+    },
   };
 }
 export { GameBoard };

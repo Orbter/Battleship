@@ -1,8 +1,11 @@
 import { Player } from './player';
 
-function startGame(name) {
+function createPLayers(name) {
   const mainPlayer = Player(name);
   const computer = Player('computer');
+  function startGame(coordinates) {
+    mainPlayer.receiveAttack(coordinates);
+  }
 }
 
-export { startGame };
+export { startGame, createPLayers };
