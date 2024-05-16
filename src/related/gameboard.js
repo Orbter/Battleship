@@ -38,9 +38,10 @@ function GameBoard() {
       }
     },
     receiveAttack(coordinates) {
-      const place = board[(coordinates[0], coordinates[1])];
+      const place = board[coordinates[0]][coordinates[1]];
+
       if (place === null) {
-        board[(coordinates[0], coordinates[1])] = 0;
+        board[coordinates[0]][coordinates[1]] = 0;
         return console.log('missed');
       }
       if (place === 0) {
@@ -50,11 +51,8 @@ function GameBoard() {
         return console.log('you already hit the ship');
       }
       place.hit();
-      board[(coordinates[0], coordinates[1])] = 2;
+      board[coordinates[0]][coordinates[1]] = 2;
       return place.isSunk();
-    },
-    getAllShips() {
-      return allShips;
     },
     getBoard() {
       return board;
