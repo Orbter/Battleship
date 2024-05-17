@@ -113,7 +113,7 @@ body {
 .ship-container {
   display: flex;
   flex-direction: column;
-  background-color: black;
+  background-color: #212529;
   padding: 10px;
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
@@ -179,4 +179,34 @@ body {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 9;
+}
+.button-container-choose {
+  width: 90%;
+  height: 5%;
+  display: flex;
+  justify-content: space-around;
+}
+.button-clear {
+  border-radius: 8px;
+  height: 100%;
+  width: 35%;
+  background-color: #e5383b;
+}
+
+.button-start {
+  border-radius: 8px;
+  height: 100%;
+  width: 35%;
+  background-color: #2eae73;
+}
+
+.button-start:active {
+  font-size: 1.1rem;
+  width: 34%;
+  height: 99%;
+}
+.button-clear:active {
+  font-size: 1.1rem;
+  width: 34%;
+  height: 99%;
 }

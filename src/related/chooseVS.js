@@ -10,7 +10,9 @@ function createPlayerChoice(name) {
   const h2 = document.createElement('h2');
   const headline = document.createElement('div');
   const shipContainer = document.createElement('div');
-
+  const buttonContainer = document.createElement('div');
+  const clearButton = document.createElement('button');
+  const startButton = document.createElement('button');
   const body = document.getElementById('body');
 
   // classes
@@ -21,12 +23,23 @@ function createPlayerChoice(name) {
   overlay.classList.add('overlay');
   shipContainer.classList.add('ship-container');
   shipContainer.style.zIndex = '10';
+  clearButton.classList.add('button');
+  startButton.classList.add('button');
+  clearButton.classList.add('button-clear');
+  startButton.classList.add('button-start');
+  buttonContainer.classList.add('button-container-choose');
 
   // text contact
   h2.textContent = `${name} choose where to place your ship`;
+  clearButton.textContent = 'Clear';
+  startButton.textContent = 'Start';
   createBoardChooseVs(boardContainer);
   headline.appendChild(h2);
+  buttonContainer.appendChild(clearButton);
+  buttonContainer.appendChild(startButton);
+
   chooseContainer.appendChild(headline);
+  chooseContainer.appendChild(buttonContainer);
   chooseContainer.appendChild(boardContainer);
   chooseContainer.appendChild(shipContainer);
 

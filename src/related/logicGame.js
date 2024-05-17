@@ -21,4 +21,3 @@ function addEvent(containerBoard, matrixBoard) {
 }
 
 export { startGame, createPLayers, addEvent };
-//betwing
