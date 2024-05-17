@@ -16,8 +16,8 @@ function homepage() {
   logo.style.backgroundClip = 'text';
 }
 homepage();
-createPlayerChoice('amit');
 const [human, opponent] = page('Orbter');
+createPlayerChoice('amit');
 
 const opponentBoard = document.querySelectorAll('.enemy-row');
 addEvent(opponentBoard, opponent.board);

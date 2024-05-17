@@ -12,6 +12,7 @@ function createMatrix(rows, cols) {
   return matrix;
 }
 function GameBoard() {
+  let isShipBuilt = false;
   const allShips = [];
   const ship5 = Ship(5);
   const ship4 = Ship(4);
@@ -59,6 +60,17 @@ function GameBoard() {
     },
     computerAttack() {
       let doesMiss = true;
+    },
+    createShip(number) {
+      const ship = Ship(number);
+      isShipBuilt = true;
+      return [ship, isShipBuilt];
+    },
+    changeShipStatus() {
+      isShipBuilt = false;
+    },
+    checkShipStatus() {
+      return isShipBuilt;
     },
   };
 }
