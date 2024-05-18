@@ -22,20 +22,22 @@ function GameBoard() {
   const ship1 = Ship(1);
   allShips.push(ship5, ship4, ship3, ship3Also, ship2, ship1);
 
-  const board = createMatrix(9, 9);
+  const board = createMatrix(8, 8);
   return {
-    placeShip(coordinates, ship, row) {
-      let num = coordinates[0];
+    placeShip(coordinates, ship, col) {
+      let num;
+      if (!col) {
+        num = coordinates[1];
+      } else {
+        num = coordinates[0];
+      }
       const lengthShip = ship.getLength();
 
       for (let index = 0; index < lengthShip; index++) {
-        if (row) {
-          board[(coordinates[0], num)] = ship;
-          num++;
-        } else {
-          board[(num, coordinates)] = ship;
-          num++;
-        }
+        if (!col) {
+          board[coordinates[0]][num] = ship;
+        } else board[num][coordinates[1]] = ship;
+        num++;
       }
     },
     receiveAttack(coordinates) {

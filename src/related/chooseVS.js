@@ -35,9 +35,19 @@ function checkIfShipClicked() {
   if (answer) return answerShip.dataset.shipLength;
   else return null;
 }
+function returnShip() {
+  const allShips = document.querySelectorAll('.ship-choose');
+  let answerShip = null;
+  allShips.forEach((ship) => {
+    if (ship.classList.contains('clicked')) {
+      answerShip = ship;
+    }
+  });
+  return answerShip;
+}
 function checkIfRotate() {
   const rotateButton = document.querySelector('.button-rotate');
-  if (rotateButton.classList.contains('button-rotate')) {
+  if (rotateButton.classList.contains('rotate-on')) {
     return true;
   }
   return false;
@@ -52,7 +62,13 @@ function placingShip(tile, board) {
     const ship = Ship(shipClicked);
     const rotateAnswer = checkIfRotate();
     board.placeShip(coordinates, ship, rotateAnswer);
-    console.log(board.getBoard());
+  }
+}
+function changeColor(tile) {
+  const ship = returnShip();
+  if (ship !== null) {
+    const color = ship.dataset.shipColor;
+    tile.style.backgroundColor = color;
   }
 }
 
@@ -64,6 +80,7 @@ function addEvent(allTiles, board) {
 
   allTiles.forEach((tile) => {
     tile.addEventListener('click', () => placingShip(tile, board));
+    tile.addEventListener('mouseover', () => changeColor(tile));
   });
   const rotate = document.querySelector('.button-rotate');
   rotate.addEventListener('click', () => {
@@ -125,6 +142,12 @@ function createPlayerChoice(name) {
   submarineImg.dataset.shipLength = 2;
   cruiserImg.dataset.shipLength = 2;
   destroyerImg.dataset.shipLength = 1;
+
+  carrierImg.dataset.shipColor = '#ff4d6d';
+  battleShipImg.dataset.shipColor = '#faa307';
+  submarineImg.dataset.shipColor = '#00b4d8';
+  cruiserImg.dataset.shipColor = '#ffdd00';
+  destroyerImg.dataset.shipColor = '#7bf1a8';
 
   // adding a logic functions
   createBoardChooseVs(boardContainer);
