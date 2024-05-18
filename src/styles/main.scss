@@ -186,13 +186,12 @@ body {
   display: flex;
   justify-content: space-around;
 }
-.button-clear {
+.button-rotate {
   border-radius: 8px;
   height: 100%;
   width: 35%;
-  background-color: #e5383b;
+  background-color: #f48c06;
 }
-
 .button-start {
   border-radius: 8px;
   height: 100%;
@@ -205,7 +204,7 @@ body {
   width: 34%;
   height: 99%;
 }
-.button-clear:active {
+.button-rotate:active {
   font-size: 1.1rem;
   width: 34%;
   height: 99%;
