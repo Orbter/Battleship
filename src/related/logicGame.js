@@ -1,23 +1,25 @@
 import { Player } from './player';
-
+import { createBoardVs, enemyBoardVs } from './board';
 function createPLayers(name) {
   const mainPlayer = Player(name);
   const computer = Player('computer');
   return [mainPlayer, computer];
 }
-function startGame(board, div) {
-  console.log(board.getBoard());
-  console.log(div);
-  const row = parseInt(div.dataset.rowNum, 10);
-  const col = parseInt(div.dataset.colNum, 10);
-  const coordinates = [];
-  coordinates.push(row, col);
-  board.receiveAttack(coordinates);
-}
-function addEvent(containerBoard, matrixBoard) {
-  containerBoard.forEach((square) => {
-    square.addEventListener('click', () => startGame(matrixBoard, square));
-  });
+
+function StartingGame(board, name) {
+  const overlay = document.querySelector('.overlay');
+  overlay.style.display = 'none';
+  const popUp = document.querySelector('.popUp');
+  popUp.style.display = 'none';
+
+  const playerBoard = document.querySelector('.player-board');
+  const playerName = document.querySelector('.headline-player');
+  const enemyBoard = document.querySelector('.opponent-board');
+
+  playerName.textContent = `${name} board`;
+  createBoardVs(playerBoard);
+  enemyBoardVs(enemyBoard);
+  const enemyBoardLogic = board.createEnemyBoard();
 }
 
-export { startGame, createPLayers, addEvent };
+export { createPLayers, StartingGame };

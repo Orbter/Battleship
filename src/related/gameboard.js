@@ -11,33 +11,32 @@ function createMatrix(rows, cols) {
   }
   return matrix;
 }
+function getRandomNumberBetween0And7() {
+  return Math.floor(Math.random() * 8);
+}
+function trueOrFalse() {
+  return Math.random() >= 0.5;
+}
 function GameBoard() {
   let isShipBuilt = false;
   const allShips = [];
-  const ship5 = Ship(5);
   const ship4 = Ship(4);
   const ship3 = Ship(3);
-  const ship3Also = Ship(3);
+  const ship2Also = Ship(2);
   const ship2 = Ship(2);
   const ship1 = Ship(1);
-  allShips.push(ship5, ship4, ship3, ship3Also, ship2, ship1);
+  allShips.push(ship4, ship3, ship2Also, ship2, ship1);
 
   const board = createMatrix(8, 8);
+  const enemyBoard = createMatrix(8, 8);
   return {
     placeShip(coordinates, ship, col) {
-      let num;
-      if (!col) {
-        num = coordinates[1];
-      } else {
-        num = coordinates[0];
-      }
       const lengthShip = ship.getLength();
 
       for (let index = 0; index < lengthShip; index++) {
         if (!col) {
-          board[coordinates[0]][num] = ship;
-        } else board[num][coordinates[1]] = ship;
-        num++;
+          board[coordinates[0]][coordinates[1] + index] = ship;
+        } else board[coordinates[0] + index][coordinates[1]] = ship;
       }
     },
     receiveAttack(coordinates) {
@@ -76,6 +75,39 @@ function GameBoard() {
     },
     returnPlace(coordinates) {
       return board[coordinates[0]][coordinates[1]];
+    },
+
+    createEnemyBoard() {
+      while (allShips.length !== 0) {
+        let row = getRandomNumberBetween0And7();
+        let col = getRandomNumberBetween0And7();
+        const horizontal = trueOrFalse();
+        const ship = allShips[0];
+        let canPlace = true;
+        if (horizontal) {
+          if (col + ship.getLength() > 8) canPlace = false;
+        } else {
+          if (row + ship.getLength() > 8) canPlace = false;
+        }
+        for (let index = 0; index < ship.getLength(); index++) {
+          if (horizontal) {
+            if (enemyBoard[row][col + index] !== null) {
+              canPlace = false;
+              break;
+            }
+          } else {
+            if (enemyBoard[row + index][col] !== null) {
+              canPlace = false;
+              break;
+            }
+          }
+        }
+        if (canPlace) {
+          const coordinates = [row, col];
+          this.placeShip(coordinates, ship, horizontal);
+          allShips.shift();
+        }
+      }
     },
   };
 }

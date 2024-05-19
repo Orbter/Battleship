@@ -8,4 +8,11 @@ function Player(name) {
     board,
   };
 }
-export { Player };
+
+function createPlayerChoiceLogic(name) {
+  const gameBoard = GameBoard(name);
+
+  return gameBoard;
+}
+
+export { Player, createPlayerChoiceLogic };

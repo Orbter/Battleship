@@ -5,14 +5,8 @@ import carrier from '../photos/carrier.png';
 import cruiser from '../photos/cruiser.png';
 import destroyer from '../photos/destroyer.png';
 import submarine from '../photos/submarine.png';
-
-import { GameBoard } from './gameboard';
-
-function createPlayerChoiceLogic(name) {
-  const gameBoard = GameBoard(name);
-
-  return gameBoard;
-}
+import { createPlayerChoiceLogic } from './player';
+import { StartingGame } from './logicGame';
 
 function addClickedShip(clickedShip) {
   const allShips = document.querySelectorAll('.ship-choose');
@@ -204,7 +198,14 @@ function removeColor() {
   });
 }
 
-function addEvent(allTiles, board) {
+function canYouPlay(board, name) {
+  const div = document.querySelector('.ship-container');
+  if (div.children.length !== 0) StartingGame(board, name);
+  else return;
+}
+// bug need to change the can you play to === 0
+
+function addEvent(allTiles, board, name) {
   const allShips = document.querySelectorAll('.ship-choose');
   allShips.forEach((ship) => {
     ship.addEventListener('click', () => addClickedShip(ship));
@@ -219,6 +220,11 @@ function addEvent(allTiles, board) {
   const rotate = document.querySelector('.button-rotate');
   rotate.addEventListener('click', () => {
     rotate.classList.toggle('rotate-on');
+  });
+
+  const startButton = document.querySelector('.button-start');
+  startButton.addEventListener('click', () => {
+    canYouPlay(board, name);
   });
 }
 
@@ -272,7 +278,7 @@ function createPlayerChoice(name) {
   body.appendChild(chooseContainer);
   const tiles = document.querySelectorAll('.square-choose');
 
-  addEvent(tiles, board);
+  addEvent(tiles, board, name);
 }
 
 export { createPlayerChoice };
