@@ -39,6 +39,15 @@ function GameBoard() {
         } else board[coordinates[0] + index][coordinates[1]] = ship;
       }
     },
+    placeEnemyShip(coordinates, ship, col) {
+      const lengthShip = ship.getLength();
+
+      for (let index = 0; index < lengthShip; index++) {
+        if (!col) {
+          enemyBoard[coordinates[0]][coordinates[1] + index] = ship;
+        } else enemyBoard[coordinates[0] + index][coordinates[1]] = ship;
+      }
+    },
     receiveAttack(coordinates) {
       const place = board[coordinates[0]][coordinates[1]];
 
@@ -58,6 +67,9 @@ function GameBoard() {
     },
     getBoard() {
       return board;
+    },
+    getEnemyBoard() {
+      return enemyBoard;
     },
     computerAttack() {
       let doesMiss = true;
@@ -85,18 +97,24 @@ function GameBoard() {
         const ship = allShips[0];
         let canPlace = true;
         if (horizontal) {
-          if (col + ship.getLength() > 8) canPlace = false;
+          if (row + ship.getLength() > 8) {
+            canPlace = false;
+            continue; // Skip the rest of the loop and start with new random coordinates
+          }
         } else {
-          if (row + ship.getLength() > 8) canPlace = false;
+          if (col + ship.getLength() > 8) {
+            canPlace = false;
+            continue; // Skip the rest of the loop and start with new random coordinates
+          }
         }
         for (let index = 0; index < ship.getLength(); index++) {
           if (horizontal) {
-            if (enemyBoard[row][col + index] !== null) {
+            if (enemyBoard[row + index][col] !== null) {
               canPlace = false;
               break;
             }
           } else {
-            if (enemyBoard[row + index][col] !== null) {
+            if (enemyBoard[row][col + index] !== null) {
               canPlace = false;
               break;
             }

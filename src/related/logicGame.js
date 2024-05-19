@@ -19,7 +19,9 @@ function StartingGame(board, name) {
   playerName.textContent = `${name} board`;
   createBoardVs(playerBoard);
   enemyBoardVs(enemyBoard);
-  const enemyBoardLogic = board.createEnemyBoard();
+  board.createEnemyBoard();
+  const enemyBoardLogic = board.getEnemyBoard();
+  console.log(enemyBoardLogic);
 }
 
 export { createPLayers, StartingGame };
