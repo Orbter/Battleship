@@ -55,41 +55,48 @@ function checkIfRotate() {
   }
   return false;
 }
-function placeShipImage(shipElement, tile, shipLength, isRotated) {
-  const shipContainer = document.querySelector('.placed-ships-container');
+function placeShipImage(shipElement, tile, isRotated) {
+  const shipContainer = document.querySelector('.board');
+  if (!shipContainer || !shipElement || !tile) {
+    console.error('Invalid shipElement, tile, or board container');
+    return;
+  }
+
   const shipImg = new Image();
   shipImg.src = shipElement.src;
   shipImg.classList.add('placed-ship');
   shipImg.style.position = 'absolute';
 
-  if (shipElement.classList.contains('carrier')) {
-    shipImg.classList.add('carrier');
-  } else if (shipElement.classList.contains('battle-ship')) {
-    shipImg.classList.add('battle-ship');
-  } else if (shipElement.classList.contains('submarine')) {
-    shipImg.classList.add('submarine ');
-  } else if (shipElement.classList.contains('cruiser')) {
-    shipImg.classList.add('cruiser');
-  } else {
-    shipImg.classList.add('destroyer');
-  }
+  const shipTypes = [
+    'carrier',
+    'battle-ship',
+    'submarine',
+    'cruiser',
+    'destroyer',
+  ];
+  shipTypes.forEach((type) => {
+    if (shipElement.classList.contains(type)) {
+      shipImg.classList.add(type);
+    }
+  });
 
-  // Calculate position based on the tile's position
   const tileRect = tile.getBoundingClientRect();
+  const boardRect = shipContainer.getBoundingClientRect();
 
-  const offsetX = tileRect.left;
-  const offsetY = tileRect.top;
+  const offsetX = tileRect.left - boardRect.left;
+  const offsetY = tileRect.top - boardRect.top;
 
   shipImg.style.left = `${offsetX}px`;
   shipImg.style.top = `${offsetY}px`;
 
   if (isRotated) {
-    shipImg.style.transform = `rotate(90deg)`;
+    shipImg.style.transform = 'rotate(90deg)';
     shipImg.style.transformOrigin = 'top left';
+    shipImg.style.left = `${offsetX + tileRect.height}px`;
   }
-
   shipContainer.appendChild(shipImg);
 }
+
 function placingShip(tile, board) {
   const doesShip = checkIfShipClicked();
   const shipClicked = returnShip();
@@ -101,7 +108,7 @@ function placingShip(tile, board) {
     const ship = Ship(doesShip);
     const rotateAnswer = checkIfRotate();
     board.placeShip(coordinates, ship, rotateAnswer);
-    placeShipImage(shipClicked, tile, doesShip, rotateAnswer); // Place ship image behind the tiles
+    placeShipImage(shipClicked, tile, rotateAnswer); // Place ship image behind the tiles
 
     shipClicked.remove();
   }
@@ -192,7 +199,6 @@ function createPlayerChoice(name) {
   const buttonContainer = document.createElement('div');
   const rotateButton = document.createElement('button');
   const startButton = document.createElement('button');
-  const placedShipsContainer = document.createElement('div');
   const body = document.getElementById('body');
 
   chooseContainer.style.zIndex = '10';
@@ -208,8 +214,6 @@ function createPlayerChoice(name) {
   rotateButton.classList.add('button-rotate');
   startButton.classList.add('button-start');
   buttonContainer.classList.add('button-container-choose');
-  placedShipsContainer.classList.add('placed-ships-container');
-  placedShipsContainer.style.position = 'relative';
 
   h2.textContent = `${name} choose where to place your ship`;
   rotateButton.textContent = 'Rotate';
@@ -228,7 +232,6 @@ function createPlayerChoice(name) {
   chooseContainer.appendChild(buttonContainer);
   chooseContainer.appendChild(boardContainer);
   chooseContainer.appendChild(shipContainer);
-  boardContainer.appendChild(placedShipsContainer);
 
   body.appendChild(overlay);
   body.appendChild(chooseContainer);
