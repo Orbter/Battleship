@@ -122,7 +122,7 @@ function GameBoard() {
         }
         if (canPlace) {
           const coordinates = [row, col];
-          this.placeShip(coordinates, ship, horizontal);
+          this.placeEnemyShip(coordinates, ship, horizontal);
           allShips.shift();
         }
       }
