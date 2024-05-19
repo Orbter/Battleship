@@ -5,6 +5,33 @@ function createPLayers(name) {
   const computer = Player('computer');
   return [mainPlayer, computer];
 }
+function checkTile(tile, board) {
+  const row = tile.dataSet.rowNum;
+  const col = tile.dataSet.colNum;
+  const enemyBoardLogic = board.getEnemyBoard();
+  if (enemyBoardLogic[row][col] === null) return true;
+  return false;
+}
+
+function playerTurn(tile, board) {
+  const canHit = checkTile();
+}
+
+function checkTurn(tile, board) {
+  const divMessage = document.querySelector('.message-container');
+  if (divMessage.classList.contains('message-container')) {
+    playerTurn(tile, board);
+  }
+}
+
+function addEvent(board) {
+  const allTiles = document.querySelectorAll('.enemy-row');
+  allTiles.forEach((tile) => {
+    tile.addEventListener('click', () => {
+      checkTurn(tile, board);
+    });
+  });
+}
 
 function StartingGame(board, name) {
   const overlay = document.querySelector('.overlay');
@@ -21,7 +48,9 @@ function StartingGame(board, name) {
   enemyBoardVs(enemyBoard);
   board.createEnemyBoard();
   const enemyBoardLogic = board.getEnemyBoard();
-  console.log(enemyBoardLogic);
+  const divMessage = document.querySelector('.message-container');
+  divMessage.classList.add('player-turn');
+  //addEvent();
 }
 
 export { createPLayers, StartingGame };
