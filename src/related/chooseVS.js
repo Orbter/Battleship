@@ -21,7 +21,6 @@ function addClickedShip(clickedShip) {
   });
   clickedShip.classList.add('clicked');
 }
-function deleteShip() {}
 
 function checkIfShipClicked() {
   const allShips = document.querySelectorAll('.ship-choose');
@@ -56,7 +55,7 @@ function checkIfRotate() {
   return false;
 }
 function placeShipImage(shipElement, tile, isRotated) {
-  const shipContainer = document.querySelector('.board');
+  const shipContainer = document.querySelector('.popUp');
   if (!shipContainer || !shipElement || !tile) {
     console.error('Invalid shipElement, tile, or board container');
     return;
@@ -66,6 +65,7 @@ function placeShipImage(shipElement, tile, isRotated) {
   shipImg.src = shipElement.src;
   shipImg.classList.add('placed-ship');
   shipImg.style.position = 'absolute';
+  shipImg.style.zIndex = '10'; // Ensure ships are below the tiles
 
   const shipTypes = [
     'carrier',
@@ -97,20 +97,55 @@ function placeShipImage(shipElement, tile, isRotated) {
   shipContainer.appendChild(shipImg);
 }
 
+function canYouPlace(board, coordinates, rotate, doesShip) {
+  const num = parseInt(doesShip, 10);
+  let answer = true;
+
+  for (let index = 0; index < num; index++) {
+    const newCoordinates = rotate
+      ? [coordinates[0] + index, coordinates[1]]
+      : [coordinates[0], coordinates[1] + index];
+
+    if (board.returnPlace(newCoordinates) !== null) {
+      answer = false;
+      break;
+    }
+  }
+
+  return answer;
+}
+
 function placingShip(tile, board) {
   const doesShip = checkIfShipClicked();
   const shipClicked = returnShip();
+  let num = parseInt(doesShip, 10);
   if (doesShip !== null) {
     const row = parseInt(tile.dataset.rowNum, 10);
     const col = parseInt(tile.dataset.rowCol, 10);
+    const rotateAnswer = checkIfRotate();
+
+    if (!rotateAnswer) {
+      if (col + num > 8) {
+        num--;
+        return;
+      }
+    } else {
+      if (row + num > 8) {
+        num--;
+        return;
+      }
+    }
     const coordinates = [];
     coordinates.push(row, col);
-    const ship = Ship(doesShip);
-    const rotateAnswer = checkIfRotate();
-    board.placeShip(coordinates, ship, rotateAnswer);
-    placeShipImage(shipClicked, tile, rotateAnswer); // Place ship image behind the tiles
+    if (canYouPlace(board, coordinates, rotateAnswer, doesShip)) {
+      const ship = Ship(doesShip);
+      board.placeShip(coordinates, ship, rotateAnswer);
+      placeShipImage(shipClicked, tile, rotateAnswer); // Place ship image behind the tiles
 
-    shipClicked.remove();
+      shipClicked.remove();
+    } else {
+      return;
+    }
   }
 }
 function calculateNumber(coordinates) {
@@ -124,7 +159,7 @@ function colorTiles(coordinates, shipLength, color) {
 
   if (!col) {
     for (let index = 0; index < shipLength; index++) {
-      if (place > allTiles.length) return;
+      if (place >= allTiles.length) return;
       const tile = allTiles[place];
       tile.classList.add('hovered-tile');
       tile.style.setProperty('--hover-color', color);

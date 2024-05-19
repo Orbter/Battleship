@@ -83,6 +83,7 @@ body {
   height: clamp(30px, 10vw, 500px);
   border: 1px solid white;
   transition: background-color 0.3s;
+  z-index: 20;
 }
 .headline {
   text-align: center;
@@ -220,11 +221,11 @@ body {
   height: clamp(30px, 10vw, 500px);
 }
 .submarine {
-  width: clamp(90px, 20vw, 500px);
+  width: clamp(60px, 20vw, 500px);
   height: clamp(30px, 10vw, 500px);
 }
 .cruiser {
-  width: clamp(90px, 20vw, 500px);
+  width: clamp(60px, 20vw, 500px);
   height: clamp(30px, 10vw, 500px);
 }
 .destroyer {
@@ -233,4 +234,7 @@ body {
 }
 .hovered-tile {
   background-color: var(--hover-color);
+}
+.placed-ship {
+  z-index: 10;
 }

@@ -74,6 +74,9 @@ function GameBoard() {
     checkShipStatus() {
       return isShipBuilt;
     },
+    returnPlace(coordinates) {
+      return board[coordinates[0]][coordinates[1]];
+    },
   };
 }
 export { GameBoard };
