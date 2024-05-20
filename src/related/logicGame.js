@@ -8,8 +8,8 @@ function createPLayers(name) {
   return [mainPlayer, computer];
 }
 function canHit(tile, board) {
-  const row = parseInt(tile.dataSet.rowNum, 10);
-  const col = parseInt(tile.dataSet.colNum, 10);
+  const row = parseInt(tile.dataset.rowNum, 10);
+  const col = parseInt(tile.dataset.colNum, 10);
   const enemyBoardLogic = board.getEnemyBoard();
   if (enemyBoardLogic[row][col] !== 0 && enemyBoardLogic[row][col] !== 2) {
     return true;
@@ -17,10 +17,10 @@ function canHit(tile, board) {
   return false;
 }
 function checkTile(tile, board) {
-  const row = parseInt(tile.dataSet.rowNum, 10);
-  const col = parseInt(tile.dataSet.colNum, 10);
+  const row = parseInt(tile.dataset.rowNum, 10);
+  const col = parseInt(tile.dataset.colNum, 10);
   const enemyBoardLogic = board.getEnemyBoard();
-  return enemyBoardLogic[(row, col)];
+  return enemyBoardLogic[row][col];
 }
 
 function calculateNumber(coordinates) {
@@ -28,12 +28,13 @@ function calculateNumber(coordinates) {
   return num;
 }
 function addClasses(status, tile, ship) {
-  const delImg = new Image();
-  delImg.classList.add('del');
-  delImg.src = del;
-
   if (status === false) {
+    const delImg = new Image();
+    delImg.classList.add('del');
+    delImg.src = del;
+
     tile.classList.add('enemy-hit');
+    tile.appendChild(delImg);
   } else if (status === 0) {
     tile.classList.add('enemy-missed');
   } else {
@@ -41,18 +42,31 @@ function addClasses(status, tile, ship) {
     for (let index = 0; index < shipLength; index++) {
       const element = ship.returnPlace();
       const allTiles = document.querySelectorAll('.enemy-row');
-      element.classList.add('enemy-sunk');
-      element.classList.remove('enemy-hit');
+      const num = calculateNumber(element);
+      const currentTile = allTiles[num];
+
+      if (currentTile && currentTile.firstChild) {
+        currentTile.removeChild(currentTile.firstChild);
+      }
+      if (currentTile.classList.contains('enemy-hit')) {
+        currentTile.classList.remove('enemy-hit');
+      }
+
+      currentTile.classList.add('enemy-sunk');
+
+      const delImg = new Image();
+      delImg.classList.add('del');
+      delImg.src = del;
+      currentTile.appendChild(delImg);
     }
   }
 }
 
 function playerTurn(tile, board, name) {
   const messageContainer = document.querySelector('.message-container');
-  const answerHit = canHit(tile, board);
   const inTile = checkTile(tile, board);
-  const row = parseInt(tile.dataSet.rowNum, 10);
-  const col = parseInt(tile.dataSet.colNum, 10);
+  const row = parseInt(tile.dataset.rowNum, 10);
+  const col = parseInt(tile.dataset.colNum, 10);
   const coordinates = [];
   let sunk;
   coordinates.push(row, col);
@@ -110,7 +124,7 @@ function StartingGame(board, name) {
   const enemyBoardLogic = board.getEnemyBoard();
   const divMessage = document.querySelector('.message-container');
   divMessage.classList.add('player-turn');
-  //addEvent(board,name);
+  addEvent(board, name);
 }
 
 export { createPLayers, StartingGame };

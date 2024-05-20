@@ -238,3 +238,16 @@ body {
 .placed-ship {
   z-index: 10;
 }
+.enemy-hit {
+  background-color: #ef233c;
+}
+.del {
+  width: clamp(20px, 10vw, 500px);
+  height: clamp(30px, 10vw, 500px);
+}
+.enemy-missed {
+  background-color: #48bfe3;
+}
+.enemy-sunk {
+  background-color: #f48c06;
+}
