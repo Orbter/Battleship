@@ -74,8 +74,8 @@ body {
   align-items: center;
 }
 .square {
-  width: clamp(30px, 11vw, 500px);
-  height: clamp(30px, 11vw, 500px);
+  width: clamp(30px, 10vw, 500px);
+  height: clamp(30px, 10vw, 500px);
   border: 1px solid white;
 }
 .square-choose {

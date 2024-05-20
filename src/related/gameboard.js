@@ -41,18 +41,29 @@ function GameBoard() {
     },
     placeEnemyShip(coordinates, ship, col) {
       const lengthShip = ship.getLength();
-
       for (let index = 0; index < lengthShip; index++) {
+        const array = [];
         if (!col) {
           enemyBoard[coordinates[0]][coordinates[1] + index] = ship;
-        } else enemyBoard[coordinates[0] + index][coordinates[1]] = ship;
+          array.push(coordinates[0], coordinates[1] + index);
+          ship.enterPosition(array);
+        } else {
+          enemyBoard[coordinates[0] + index][coordinates[1]] = ship;
+          array.push(coordinates[0] + index, coordinates[1]);
+          ship.enterPosition(array);
+        }
       }
     },
-    Attack(coordinates) {
+    Attack(coordinates, tile) {
       const place = enemyBoard[coordinates[0]][coordinates[1]];
-      place.hit();
-      enemyBoard[coordinates[0]][coordinates[1]] = 2;
-      return place.isSunk();
+      if (tile === null) {
+        enemyBoard[coordinates[0]][coordinates[1]] = 0;
+        return 0;
+      } else {
+        place.hit();
+        enemyBoard[coordinates[0]][coordinates[1]] = 2;
+        return place.isSunk();
+      }
     },
     getBoard() {
       return board;

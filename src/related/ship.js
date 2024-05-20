@@ -1,7 +1,14 @@
 function Ship(length) {
   let hits = 0;
   let sunk = false;
+  const position = [];
   return {
+    returnPlace() {
+      return position.shift();
+    },
+    enterPosition(coordinates) {
+      position.push(coordinates);
+    },
     getNumOfHits() {
       return hits;
     },
