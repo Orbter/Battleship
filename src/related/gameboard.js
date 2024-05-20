@@ -17,6 +17,14 @@ function getRandomNumberBetween0And7() {
 function trueOrFalse() {
   return Math.random() >= 0.5;
 }
+function create64() {
+  const array = [];
+  for (let index = 0; index < 64; index++) {
+    array.push(index);
+  }
+  return array;
+}
+
 function GameBoard() {
   let isShipBuilt = false;
   const allShips = [];
@@ -25,8 +33,9 @@ function GameBoard() {
   const ship2Also = Ship(2);
   const ship2 = Ship(2);
   const ship1 = Ship(1);
-  allShips.push(ship4, ship3, ship2Also, ship2, ship1);
+  const list = create64();
 
+  allShips.push(ship4, ship3, ship2Also, ship2, ship1);
   const board = createMatrix(8, 8);
   const enemyBoard = createMatrix(8, 8);
   return {
@@ -88,7 +97,12 @@ function GameBoard() {
     returnPlace(coordinates) {
       return board[coordinates[0]][coordinates[1]];
     },
-
+    return64list() {
+      return list;
+    },
+    spliceNum(num) {
+      list.splice(num, 1);
+    },
     createEnemyBoard() {
       while (allShips.length !== 0) {
         let row = getRandomNumberBetween0And7();

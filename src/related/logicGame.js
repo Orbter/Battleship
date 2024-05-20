@@ -2,6 +2,10 @@ import { Player } from './player';
 import { createBoardVs, enemyBoardVs } from './board';
 import del from '../photos/delete.png';
 
+function getRandomNumber64() {
+  return Math.floor(Math.random() * 64);
+}
+
 function createPLayers(name) {
   const mainPlayer = Player(name);
   const computer = Player('computer');
@@ -93,7 +97,27 @@ function playerTurn(tile, board, name) {
     }
   }
 }
-function enemyTurn(board) {}
+function enemyAttack(board,number) {
+  const allTiles = document.querySelectorAll('.player-row');
+  const tile = allTiles[number];
+  const row;
+}
+
+function enemyTurn(board) {
+  const list = board.return64list();
+  let number;
+  let answer = false;
+  while (answer) {
+    const randomNum = getRandomNumber64();
+    const index = list.indexOf(randomNum);
+    if (index !== -1) {
+      number = randomNum;
+      board.spliceNum(randomNum);
+      answer = true;
+    }
+  }
+  enemyAttack(board,number);
+}
 
 function checkTurn(tile, board, name) {
   const divMessage = document.querySelector('.message-container');

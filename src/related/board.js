@@ -5,6 +5,8 @@ function createBoardVs(container) {
     for (let row = 0; row < 8; row++) {
       const rowDiv = document.createElement('div');
       rowDiv.classList.add('square');
+      rowDiv.classList.add('player-row');
+
       rowDiv.dataset.rowNum = row;
       rowDiv.dataset.rowCol = col;
       colDiv.appendChild(rowDiv);
