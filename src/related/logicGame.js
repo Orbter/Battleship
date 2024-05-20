@@ -54,16 +54,16 @@ function addClasses(status, tile, ship) {
 
       currentTile.classList.add('enemy-sunk');
 
-      const delImg = new Image();
-      delImg.classList.add('del');
-      delImg.src = del;
-      currentTile.appendChild(delImg);
+      const delImgAgain = new Image();
+      delImgAgain.classList.add('del');
+      delImgAgain.src = del;
+      currentTile.appendChild(delImgAgain);
     }
   }
 }
 
 function playerTurn(tile, board, name) {
-  const messageContainer = document.querySelector('.message-container');
+  const messageContainer = document.querySelector('.message');
   const inTile = checkTile(tile, board);
   const row = parseInt(tile.dataset.rowNum, 10);
   const col = parseInt(tile.dataset.colNum, 10);
@@ -81,20 +81,28 @@ function playerTurn(tile, board, name) {
     } else {
       messageContainer.textContent = `${name} missed! try again`;
       addClasses(sunk, tile, inTile);
+      const divMessage = document.querySelector('.message-container');
+      divMessage.classList.remove('player-turn');
+      divMessage.classList.add('enemy-turn');
     }
   } else {
     if (inTile === 2) {
       messageContainer.textContent = `you can't hit it again!`;
     } else {
-      messageContainer.textContent = `you can'y miss again`;
+      messageContainer.textContent = `you can't miss again`;
     }
   }
 }
+function enemyTurn(board) {}
 
 function checkTurn(tile, board, name) {
   const divMessage = document.querySelector('.message-container');
-  if (divMessage.classList.contains('message-container')) {
+  if (divMessage.classList.contains('win')) {
+    console.log('win');
+  } else if (divMessage.classList.contains('player-turn')) {
     playerTurn(tile, board, name);
+  } else {
+    enemyTurn(board);
   }
 }
 
