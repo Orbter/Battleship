@@ -34,7 +34,7 @@ function GameBoard() {
   const ship2 = Ship(2);
   const ship1 = Ship(1);
   const list = create64();
-
+  let position;
   allShips.push(ship4, ship3, ship2Also, ship2, ship1);
   const board = createMatrix(8, 8);
   const enemyBoard = createMatrix(8, 8);
@@ -47,6 +47,12 @@ function GameBoard() {
           board[coordinates[0]][coordinates[1] + index] = ship;
         } else board[coordinates[0] + index][coordinates[1]] = ship;
       }
+    },
+    savePosition(coordinates) {
+      position = coordinates;
+    },
+    returnPosition() {
+      return position;
     },
     placeEnemyShip(coordinates, ship, col) {
       const lengthShip = ship.getLength();

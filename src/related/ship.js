@@ -1,10 +1,14 @@
 function Ship(length) {
   let hits = 0;
   let sunk = false;
+  const directions = ['down', 'up', 'right', 'left'];
   const position = [];
   return {
     returnPlace() {
       return position.shift();
+    },
+    returnDirections() {
+      return directions;
     },
     enterPosition(coordinates) {
       position.push(coordinates);

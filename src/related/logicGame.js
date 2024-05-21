@@ -97,10 +97,37 @@ function playerTurn(tile, board, name) {
     }
   }
 }
-function enemyAttack(board,number) {
-  const allTiles = document.querySelectorAll('.player-row');
-  const tile = allTiles[number];
-  const row;
+
+function enemyAttackUntilEnd(coordinates, allTiles, tileLogic, number, board) {
+  const directions = tileLogic.returnDirections();
+  const newCoordinates = [];
+
+  if (directions[0] === 'down') {
+    if (coordinates[0] !== 7) {
+      const row = coordinates[0] + 1;
+      newCoordinates.push(row, coordinates[1]);
+      number--;
+      const newTileVs = allTiles[number];
+      board.savePosition(coordinates);
+      enemyAttack(board, number, newCoordinates, allTiles, newTileVs);
+    }
+  }
+}
+
+function enemyAttack(board, number, coordinates, allTiles, tile) {
+  const tileLogic = board.returnPlace(coordinates);
+  if (tileLogic === null) {
+    addClasses(0, tile, tileLogic);
+    return;
+  }
+  if (tileLogic !== 0) {
+    tileLogic.hit();
+    const status = tileLogic.isSunk();
+    if (!status) {
+      addClasses(status, tile, tileLogic);
+      enemyAttackUntilEnd(coordinates, allTiles, tileLogic, number, board);
+    }
+  }
 }
 
 function enemyTurn(board) {
@@ -116,7 +143,14 @@ function enemyTurn(board) {
       answer = true;
     }
   }
-  enemyAttack(board,number);
+  const allTiles = document.querySelectorAll('.player-row');
+  const tile = allTiles[number];
+  const row = tile.dataset.rowNum;
+  const col = tile.dataset.rowCol;
+  const coordinates = [];
+  coordinates.push(row, col);
+
+  enemyAttack(board, number, coordinates, allTiles, tile);
 }
 
 function checkTurn(tile, board, name) {
