@@ -10,6 +10,9 @@ function Ship(length) {
     returnDirections() {
       return directions;
     },
+    shiftDirections() {
+      directions.shift();
+    },
     enterPosition(coordinates) {
       position.push(coordinates);
     },

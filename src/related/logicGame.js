@@ -31,7 +31,7 @@ function calculateNumber(coordinates) {
   const num = coordinates[1] * 8 + coordinates[0];
   return num;
 }
-function addClasses(status, tile, ship) {
+function addClasses(status, tile, ship, className) {
   if (status === false) {
     const delImg = new Image();
     delImg.classList.add('del');
@@ -45,7 +45,7 @@ function addClasses(status, tile, ship) {
     const shipLength = ship.getLength();
     for (let index = 0; index < shipLength; index++) {
       const element = ship.returnPlace();
-      const allTiles = document.querySelectorAll('.enemy-row');
+      const allTiles = document.querySelectorAll(className);
       const num = calculateNumber(element);
       const currentTile = allTiles[num];
 
@@ -65,7 +65,6 @@ function addClasses(status, tile, ship) {
     }
   }
 }
-
 function playerTurn(tile, board, name) {
   const messageContainer = document.querySelector('.message');
   const inTile = checkTile(tile, board);
@@ -81,7 +80,7 @@ function playerTurn(tile, board, name) {
       addClasses(sunk, tile, inTile);
     } else if (sunk === true) {
       messageContainer.textContent = `${name} sunken a ship!`;
-      addClasses(sunk, tile, inTile);
+      addClasses(sunk, tile, inTile, '.enemy-row');
     } else {
       messageContainer.textContent = `${name} missed! try again`;
       addClasses(sunk, tile, inTile);
@@ -106,12 +105,53 @@ function enemyAttackUntilEnd(coordinates, allTiles, tileLogic, number, board) {
     if (coordinates[0] !== 7) {
       const row = coordinates[0] + 1;
       newCoordinates.push(row, coordinates[1]);
+      number++;
+      const newTileVs = allTiles[number];
+      enemyAttack(board, number, newCoordinates, allTiles, newTileVs);
+    }
+    tileLogic.shiftDirections();
+    return;
+  }
+  if (directions[0] === 'up') {
+    coordinates = board.returnPosition();
+    number = calculateNumber(coordinates);
+
+    if (coordinates[0] !== 0) {
+      const row = coordinates[0] - 1;
+      newCoordinates.push(row, coordinates[1]);
       number--;
       const newTileVs = allTiles[number];
-      board.savePosition(coordinates);
+      enemyAttack(board, number, newCoordinates, allTiles, newTileVs);
+    }
+    tileLogic.shiftDirections();
+    return;
+  }
+  if (directions[0] === 'right') {
+    coordinates = board.returnPosition();
+    number = calculateNumber(coordinates);
+    if (coordinates[1] !== 7) {
+      const col = coordinates[1] + 1;
+      newCoordinates.push(coordinates[0], col);
+      number += 8;
+      const newTileVs = allTiles[number];
+      enemyAttack(board, number, newCoordinates, allTiles, newTileVs);
+    }
+    tileLogic.shiftDirections();
+    return;
+  }
+  if (directions[0] === 'left') {
+    coordinates = board.returnPosition();
+    number = calculateNumber(coordinates);
+    if (coordinates[1] !== 0) {
+      const col = coordinates[1] - 1;
+      newCoordinates.push(coordinates[0], col);
+      number -= 8;
+      const newTileVs = allTiles[number];
       enemyAttack(board, number, newCoordinates, allTiles, newTileVs);
     }
   }
+  tileLogic.shiftDirections();
+  return;
 }
 
 function enemyAttack(board, number, coordinates, allTiles, tile) {
@@ -120,12 +160,15 @@ function enemyAttack(board, number, coordinates, allTiles, tile) {
     addClasses(0, tile, tileLogic);
     return;
   }
-  if (tileLogic !== 0) {
+  if ((tileLogic !== 0) & (tileLogic !== 2)) {
     tileLogic.hit();
     const status = tileLogic.isSunk();
     if (!status) {
       addClasses(status, tile, tileLogic);
       enemyAttackUntilEnd(coordinates, allTiles, tileLogic, number, board);
+    } else {
+      addClasses(status, tile, tileLogic, '.player-row');
+      // i need to add a random attack here
     }
   }
 }
@@ -147,8 +190,9 @@ function enemyTurn(board) {
   const tile = allTiles[number];
   const row = tile.dataset.rowNum;
   const col = tile.dataset.rowCol;
-  const coordinates = [];
+  let coordinates = [];
   coordinates.push(row, col);
+  board.savePosition(coordinates);
 
   enemyAttack(board, number, coordinates, allTiles, tile);
 }
