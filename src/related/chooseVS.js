@@ -1,4 +1,8 @@
-import { createBoardChooseVs, updatePlayerBoardVs } from './board';
+import {
+  createBoardChooseVs,
+  updatePlayerBoardVs,
+  createBoardVs,
+} from './board';
 import { Ship, shipVS } from './ship';
 import battleShip from '../photos/battleShip2.png';
 import carrier from '../photos/carrier.png';
@@ -132,13 +136,9 @@ function placingShip(tile, board) {
     coordinates.push(row, col);
     if (canYouPlace(board, coordinates, rotateAnswer, doesShip)) {
       const ship = Ship(doesShip);
-      if (rotateAnswer) {
-        ship.changeRow();
-      }
-
       board.placeShip(coordinates, ship, rotateAnswer);
       placeShipImage(shipClicked, tile, rotateAnswer); // Place ship image behind the tiles
-      //updatePlayerBoardVs(shipClicked, tile, rotateAnswer);
+      updatePlayerBoardVs(shipClicked, tile, rotateAnswer);
       shipClicked.remove();
     } else {
       return;
@@ -245,6 +245,11 @@ function createPlayerChoice(name) {
   const rotateButton = document.createElement('button');
   const startButton = document.createElement('button');
   const body = document.getElementById('body');
+
+  const playerBoard = document.querySelector('.player-board');
+  const playerName = document.querySelector('.headline-player');
+  playerName.textContent = `${name} board`;
+  createBoardVs(playerBoard);
 
   chooseContainer.style.zIndex = '10';
   chooseContainer.classList.add('popUp');

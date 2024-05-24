@@ -225,14 +225,9 @@ function StartingGame(board, name) {
   overlay.style.display = 'none';
   const popUp = document.querySelector('.popUp');
   popUp.style.display = 'none';
-  updatePlayerBoardVs(board);
 
-  const playerBoard = document.querySelector('.player-board');
-  const playerName = document.querySelector('.headline-player');
   const enemyBoard = document.querySelector('.opponent-board');
 
-  playerName.textContent = `${name} board`;
-  createBoardVs(playerBoard);
   enemyBoardVs(enemyBoard);
   board.createEnemyBoard();
   const enemyBoardLogic = board.getEnemyBoard();

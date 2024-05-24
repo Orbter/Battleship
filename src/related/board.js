@@ -50,8 +50,8 @@ function enemyBoardVs(container) {
 }
 
 function updatePlayerBoardVs(shipElement, tile, isRotated) {
-  const boardPlayer = board.getBoard();
   const allTiles = document.querySelectorAll('.player-row');
+  const container = document.querySelector('.player-board');
   const row = parseInt(tile.dataset.rowNum, 10);
   const col = parseInt(tile.dataset.rowCol, 10);
   const coordinates = [];
@@ -83,11 +83,21 @@ function updatePlayerBoardVs(shipElement, tile, isRotated) {
     }
   });
 
+  const tileRect = currentTile.getBoundingClientRect();
+  const boardRect = container.getBoundingClientRect();
+
+  const offsetX = tileRect.left - boardRect.left;
+  const offsetY = tileRect.top - boardRect.top;
+  shipImg.style.left = `${offsetX}px`;
+  shipImg.style.top = `${offsetY}px`;
+
   if (isRotated) {
     shipImg.style.transform = 'rotate(90deg)';
     shipImg.style.transformOrigin = 'top left';
     shipImg.style.left = `${offsetX + tileRect.height}px`;
   }
+
+  container.appendChild(shipImg);
 }
 
 export {

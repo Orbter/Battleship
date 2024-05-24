@@ -150,6 +150,8 @@ body {
 }
 .player-board {
   display: flex;
+  z-index: 6;
+  position: relative;
 }
 .opponent-board {
   display: flex;
@@ -260,4 +262,14 @@ body {
   justify-content: center;
   align-items: center;
   margin: 0;
+}
+.player-row {
+  z-index: 12; /* Ensure tiles are in front */
+}
+.placed-ship-player {
+  z-index: 5; /* Ensure ships are behind tiles */
+  position: absolute;
+}
+.col {
+  z-index: 11;
 }
