@@ -87,6 +87,7 @@ function playerTurn(tile, board, name) {
       const divMessage = document.querySelector('.message-container');
       divMessage.classList.remove('player-turn');
       divMessage.classList.add('enemy-turn');
+      checkTurn(tile, board, name);
     }
   } else {
     if (inTile === 2) {
@@ -180,7 +181,7 @@ function enemyTurn(board) {
   const list = board.return64list();
   let number;
   let answer = false;
-  while (answer) {
+  while (!answer) {
     const randomNum = getRandomNumber64();
     const index = list.indexOf(randomNum);
     if (index !== -1) {
@@ -237,3 +238,4 @@ function StartingGame(board, name) {
 }
 
 export { createPLayers, StartingGame, calculateNumber };
+//debaging
