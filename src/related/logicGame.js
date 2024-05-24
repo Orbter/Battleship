@@ -1,5 +1,5 @@
 import { Player } from './player';
-import { createBoardVs, enemyBoardVs } from './board';
+import { createBoardVs, enemyBoardVs, updatePlayerBoardVs } from './board';
 import del from '../photos/delete.png';
 
 function getRandomNumber64() {
@@ -158,6 +158,7 @@ function enemyAttack(board, number, coordinates, allTiles, tile) {
   const tileLogic = board.returnPlace(coordinates);
   if (tileLogic === null) {
     addClasses(0, tile, tileLogic);
+    board.spliceNum(number);
     return;
   }
   if ((tileLogic !== 0) & (tileLogic !== 2)) {
@@ -165,10 +166,12 @@ function enemyAttack(board, number, coordinates, allTiles, tile) {
     const status = tileLogic.isSunk();
     if (!status) {
       addClasses(status, tile, tileLogic);
+      board.spliceNum(number);
       enemyAttackUntilEnd(coordinates, allTiles, tileLogic, number, board);
     } else {
       addClasses(status, tile, tileLogic, '.player-row');
-      // i need to add a random attack here
+      board.spliceNum(number);
+      enemyTurn(board);
     }
   }
 }
@@ -222,6 +225,7 @@ function StartingGame(board, name) {
   overlay.style.display = 'none';
   const popUp = document.querySelector('.popUp');
   popUp.style.display = 'none';
+  updatePlayerBoardVs(board);
 
   const playerBoard = document.querySelector('.player-board');
   const playerName = document.querySelector('.headline-player');
@@ -237,4 +241,4 @@ function StartingGame(board, name) {
   addEvent(board, name);
 }
 
-export { createPLayers, StartingGame };
+export { createPLayers, StartingGame, calculateNumber };

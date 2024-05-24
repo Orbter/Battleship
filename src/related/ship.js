@@ -1,6 +1,7 @@
 function Ship(length) {
   let hits = 0;
   let sunk = false;
+  let col = false;
   const directions = ['down', 'up', 'right', 'left'];
   const position = [];
   return {

@@ -1,4 +1,4 @@
-import { createBoardChooseVs } from './board';
+import { createBoardChooseVs, updatePlayerBoardVs } from './board';
 import { Ship, shipVS } from './ship';
 import battleShip from '../photos/battleShip2.png';
 import carrier from '../photos/carrier.png';
@@ -51,7 +51,6 @@ function checkIfRotate() {
 function placeShipImage(shipElement, tile, isRotated) {
   const shipContainer = document.querySelector('.popUp');
   if (!shipContainer || !shipElement || !tile) {
-    console.error('Invalid shipElement, tile, or board container');
     return;
   }
 
@@ -59,7 +58,7 @@ function placeShipImage(shipElement, tile, isRotated) {
   shipImg.src = shipElement.src;
   shipImg.classList.add('placed-ship');
   shipImg.style.position = 'absolute';
-  shipImg.style.zIndex = '10'; // Ensure ships are below the tiles
+  shipImg.style.zIndex = '5';
 
   const shipTypes = [
     'carrier',
@@ -133,9 +132,13 @@ function placingShip(tile, board) {
     coordinates.push(row, col);
     if (canYouPlace(board, coordinates, rotateAnswer, doesShip)) {
       const ship = Ship(doesShip);
+      if (rotateAnswer) {
+        ship.changeRow();
+      }
+
       board.placeShip(coordinates, ship, rotateAnswer);
       placeShipImage(shipClicked, tile, rotateAnswer); // Place ship image behind the tiles
-
+      //updatePlayerBoardVs(shipClicked, tile, rotateAnswer);
       shipClicked.remove();
     } else {
       return;
@@ -200,7 +203,8 @@ function removeColor() {
 
 function canYouPlay(board, name) {
   const div = document.querySelector('.ship-container');
-  if (div.children.length !== 0) StartingGame(board, name);
+  console.log(board.getBoard());
+  if (div.children.length === 0) StartingGame(board, name);
   else return;
 }
 // bug need to change the can you play to === 0

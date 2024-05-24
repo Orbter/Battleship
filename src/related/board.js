@@ -1,3 +1,5 @@
+import { calculateNumber } from './logicGame';
+
 function createBoardVs(container) {
   for (let col = 0; col < 8; col++) {
     const colDiv = document.createElement('div');
@@ -47,4 +49,50 @@ function enemyBoardVs(container) {
   }
 }
 
-export { createBoardVs, enemyBoardVs, createBoardChooseVs };
+function updatePlayerBoardVs(shipElement, tile, isRotated) {
+  const boardPlayer = board.getBoard();
+  const allTiles = document.querySelectorAll('.player-row');
+  const row = parseInt(tile.dataset.rowNum, 10);
+  const col = parseInt(tile.dataset.rowCol, 10);
+  const coordinates = [];
+  coordinates.push(row, col);
+  const num = calculateNumber(coordinates);
+  const currentTile = allTiles[num];
+
+  const shipContainer = document.querySelector('.popUp');
+  if (!shipContainer || !shipElement || !tile) {
+    return;
+  }
+
+  const shipImg = new Image();
+  shipImg.src = shipElement.src;
+  shipImg.classList.add('placed-ship');
+  shipImg.style.position = 'absolute';
+  shipImg.style.zIndex = '5';
+
+  const shipTypes = [
+    'carrier',
+    'battle-ship',
+    'submarine',
+    'cruiser',
+    'destroyer',
+  ];
+  shipTypes.forEach((type) => {
+    if (shipElement.classList.contains(type)) {
+      shipImg.classList.add(type);
+    }
+  });
+
+  if (isRotated) {
+    shipImg.style.transform = 'rotate(90deg)';
+    shipImg.style.transformOrigin = 'top left';
+    shipImg.style.left = `${offsetX + tileRect.height}px`;
+  }
+}
+
+export {
+  createBoardVs,
+  enemyBoardVs,
+  createBoardChooseVs,
+  updatePlayerBoardVs,
+};
