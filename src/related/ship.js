@@ -24,7 +24,7 @@ function Ship(length) {
       hits += 1;
     },
     isSunk() {
-      return length === hits;
+      return parseInt(length, 10) === hits;
     },
     getLength() {
       return length;

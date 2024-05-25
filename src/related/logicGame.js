@@ -42,9 +42,12 @@ function addClasses(status, tile, ship, className) {
   } else if (status === 0) {
     tile.classList.add('enemy-missed');
   } else {
+    if (tile.classList.contains('enemy-sunk')) return;
+
     const shipLength = ship.getLength();
     for (let index = 0; index < shipLength; index++) {
-      const element = ship.returnPlace();
+      const element = ship.returnPlace().map((number) => parseInt(number, 10));
+
       const allTiles = document.querySelectorAll(className);
       const num = calculateNumber(element);
       const currentTile = allTiles[num];
@@ -116,7 +119,12 @@ function enemyAttackUntilEnd(
       newCoordinates.push(row, coordinates[1]);
       number++;
       const newTileVs = allTiles[number];
-      enemyAttack(board, number, newCoordinates, allTiles, newTileVs);
+      if (newTileVs.classList.contains('enemy-hit')) {
+        board.savePosition(newCoordinates);
+        enemyAttackUntilEnd(newCoordinates, allTiles, tileLogic, number, board);
+      } else {
+        enemyAttack(board, number, newCoordinates, allTiles, newTileVs);
+      }
     }
     tileLogic.shiftDirections();
     return;
@@ -130,7 +138,20 @@ function enemyAttackUntilEnd(
       newCoordinates.push(row, coordinates[1]);
       number--;
       const newTileVs = allTiles[number];
-      enemyAttack(board, number, newCoordinates, allTiles, newTileVs);
+      if (newTileVs.classList.contains('enemy-missed')) {
+        tileLogic.shiftDirections();
+        enemyAttackUntilEnd(newCoordinates, allTiles, tileLogic, number, board);
+        return;
+      }
+      if (newTileVs.classList.contains('enemy-hit')) {
+        board.savePosition(newCoordinates);
+        enemyAttackUntilEnd(newCoordinates, allTiles, tileLogic, number, board);
+      } else {
+        enemyAttack(board, number, newCoordinates, allTiles, newTileVs);
+      }
+    } else {
+      tileLogic.shiftDirections();
+      enemyAttackUntilEnd(coordinates, allTiles, tileLogic, number, board);
     }
     tileLogic.shiftDirections();
     return;
@@ -143,19 +164,40 @@ function enemyAttackUntilEnd(
       newCoordinates.push(coordinates[0], col);
       number += 8;
       const newTileVs = allTiles[number];
-      enemyAttack(board, number, newCoordinates, allTiles, newTileVs);
+      if (newTileVs.classList.contains('enemy-missed')) {
+        tileLogic.shiftDirections();
+        enemyAttackUntilEnd(newCoordinates, allTiles, tileLogic, number, board);
+        return;
+      }
+      if (newTileVs.classList.contains('enemy-hit')) {
+        board.savePosition(newCoordinates);
+        enemyAttackUntilEnd(newCoordinates, allTiles, tileLogic, number, board);
+      } else {
+        enemyAttack(board, number, newCoordinates, allTiles, newTileVs);
+      }
+    } else {
+      tileLogic.shiftDirections();
+      enemyAttackUntilEnd(coordinates, allTiles, tileLogic, number, board);
     }
-    tileLogic.shiftDirections();
     return;
   }
-  if (directions[0] === 'left') {
+  if (directions[0] === 'left' || directions.length === 0) {
     coordinates = board.returnPosition();
     number = calculateNumber(coordinates);
-    if (coordinates[1] !== 0) {
-      const col = coordinates[1] - 1;
-      newCoordinates.push(coordinates[0], col);
-      number -= 8;
-      const newTileVs = allTiles[number];
+
+    const col = coordinates[1] - 1;
+    newCoordinates.push(coordinates[0], col);
+    number -= 8;
+    const newTileVs = allTiles[number];
+    if (newTileVs.classList.contains('enemy-missed')) {
+      tileLogic.shiftDirections();
+      enemyAttackUntilEnd(newCoordinates, allTiles, tileLogic, number, board);
+      return;
+    }
+    if (newTileVs.classList.contains('enemy-hit')) {
+      board.savePosition(newCoordinates);
+      enemyAttackUntilEnd(newCoordinates, allTiles, tileLogic, number, board);
+    } else {
       enemyAttack(board, number, newCoordinates, allTiles, newTileVs);
     }
   }
@@ -173,14 +215,21 @@ function enemyAttack(board, number, coordinates, allTiles, tile) {
     divMessage.classList.add('player-turn');
     return;
   }
-  if ((tileLogic !== 0) & (tileLogic !== 2)) {
+  if (tileLogic.isSunk()) {
+    const status = tileLogic.isSunk();
+    addClasses(status, tile, tileLogic);
+  } else if ((tileLogic !== 0) & (tileLogic !== 2)) {
     tileLogic.hit();
     const status = tileLogic.isSunk();
     if (!status) {
+      tileLogic.enterPosition(coordinates);
+
       addClasses(status, tile, tileLogic);
       board.spliceNum(number);
       enemyAttackUntilEnd(coordinates, allTiles, tileLogic, number, board);
     } else {
+      tileLogic.enterPosition(coordinates);
+
       addClasses(status, tile, tileLogic, '.player-row');
       board.spliceNum(number);
       enemyTurn(board);
@@ -215,13 +264,22 @@ function enemyTurn(board) {
     }
     const allTiles = document.querySelectorAll('.player-row');
     const tile = allTiles[number];
-    const row = tile.dataset.rowNum;
-    const col = tile.dataset.rowCol;
+    const row = parseInt(tile.dataset.rowNum, 10);
+    const col = parseInt(tile.dataset.rowCol, 10);
     let coordinates = [];
     coordinates.push(row, col);
-    board.savePosition(coordinates);
+    if (
+      tile.classList.contains('enemy-hit') ||
+      tile.classList.contains('enemy-missed') ||
+      tile.classList.contains('enemy-sunk')
+    ) {
+      board.spliceNum(number);
+      enemyTurn(board);
+    } else {
+      board.savePosition(coordinates);
 
-    enemyAttack(board, number, coordinates, allTiles, tile);
+      enemyAttack(board, number, coordinates, allTiles, tile);
+    }
   }
 }
 
