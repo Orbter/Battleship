@@ -98,7 +98,15 @@ function playerTurn(tile, board, name) {
   }
 }
 
-function enemyAttackUntilEnd(coordinates, allTiles, tileLogic, number, board) {
+function enemyAttackUntilEnd(
+  textCoordinates,
+  allTiles,
+  tileLogic,
+  number,
+  board
+) {
+  let coordinates = textCoordinates.map((element) => parseInt(element, 10));
+
   const directions = tileLogic.returnDirections();
   const newCoordinates = [];
 
@@ -160,6 +168,9 @@ function enemyAttack(board, number, coordinates, allTiles, tile) {
   if (tileLogic === null) {
     addClasses(0, tile, tileLogic);
     board.spliceNum(number);
+    const divMessage = document.querySelector('.message-container');
+    divMessage.classList.remove('enemy-turn');
+    divMessage.classList.add('player-turn');
     return;
   }
   if ((tileLogic !== 0) & (tileLogic !== 2)) {
