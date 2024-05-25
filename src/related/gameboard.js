@@ -108,6 +108,9 @@ function GameBoard() {
       return list;
     },
     spliceNum(num) {
+      console.log(list);
+      console.log('this');
+      console.log(num);
       list.splice(num, 1);
     },
     createEnemyBoard() {

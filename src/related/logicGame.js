@@ -253,15 +253,8 @@ function enemyTurn(board) {
     const list = board.return64list();
     let number;
     let answer = false;
-    while (!answer) {
-      const randomNum = getRandomNumber64();
-      const index = list.indexOf(randomNum);
-      if (index !== -1) {
-        number = randomNum;
-        board.spliceNum(randomNum);
-        answer = true;
-      }
-    }
+    number = getRandomNumber64();
+
     const allTiles = document.querySelectorAll('.player-row');
     const tile = allTiles[number];
     const row = parseInt(tile.dataset.rowNum, 10);
