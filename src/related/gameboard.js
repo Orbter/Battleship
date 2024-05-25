@@ -52,7 +52,8 @@ function GameBoard() {
       position = coordinates;
     },
     returnPosition() {
-      return position;
+      let coordinates = position.map((element) => parseInt(element, 10));
+      return coordinates;
     },
     placeEnemyShip(coordinates, ship, col) {
       const lengthShip = ship.getLength();

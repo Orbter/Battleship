@@ -11,14 +11,14 @@ function createPLayers(name) {
   const computer = Player('computer');
   return [mainPlayer, computer];
 }
-function canHit(tile, board) {
-  const row = parseInt(tile.dataset.rowNum, 10);
-  const col = parseInt(tile.dataset.colNum, 10);
-  const enemyBoardLogic = board.getEnemyBoard();
-  if (enemyBoardLogic[row][col] !== 0 && enemyBoardLogic[row][col] !== 2) {
-    return true;
+function didHit() {
+  const allTiles = document.querySelectorAll('.player-row');
+  let hit = false;
+  for (let index = 0; index < allTiles.length; index++) {
+    const div = allTiles[index];
+    if (div.classList.contains('enemy-hit')) hit = true;
   }
-  return false;
+  return hit;
 }
 function checkTile(tile, board) {
   const row = parseInt(tile.dataset.rowNum, 10);
@@ -188,28 +188,41 @@ function enemyAttack(board, number, coordinates, allTiles, tile) {
   }
 }
 
-function enemyTurn(board) {
-  const list = board.return64list();
-  let number;
-  let answer = false;
-  while (!answer) {
-    const randomNum = getRandomNumber64();
-    const index = list.indexOf(randomNum);
-    if (index !== -1) {
-      number = randomNum;
-      board.spliceNum(randomNum);
-      answer = true;
-    }
-  }
-  const allTiles = document.querySelectorAll('.player-row');
-  const tile = allTiles[number];
-  const row = tile.dataset.rowNum;
-  const col = tile.dataset.rowCol;
-  let coordinates = [];
-  coordinates.push(row, col);
-  board.savePosition(coordinates);
+function hitAgain(board) {
+  let position = board.returnPosition();
+  let allTiles = document.querySelectorAll('.player-row');
+  let boardLogic = board.getBoard();
+  let tileLogic = boardLogic[position[0]][position[1]];
+  let number = 0;
+  enemyAttackUntilEnd(position, allTiles, tileLogic, number, board);
+}
 
-  enemyAttack(board, number, coordinates, allTiles, tile);
+function enemyTurn(board) {
+  if (didHit()) {
+    hitAgain(board);
+  } else {
+    const list = board.return64list();
+    let number;
+    let answer = false;
+    while (!answer) {
+      const randomNum = getRandomNumber64();
+      const index = list.indexOf(randomNum);
+      if (index !== -1) {
+        number = randomNum;
+        board.spliceNum(randomNum);
+        answer = true;
+      }
+    }
+    const allTiles = document.querySelectorAll('.player-row');
+    const tile = allTiles[number];
+    const row = tile.dataset.rowNum;
+    const col = tile.dataset.rowCol;
+    let coordinates = [];
+    coordinates.push(row, col);
+    board.savePosition(coordinates);
+
+    enemyAttack(board, number, coordinates, allTiles, tile);
+  }
 }
 
 function checkTurn(tile, board, name) {
