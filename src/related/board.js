@@ -40,7 +40,7 @@ function enemyBoardVs(container) {
       const rowDiv = document.createElement('div');
       rowDiv.classList.add('square');
       rowDiv.classList.add('enemy-row');
-
+      rowDiv.style.cursor = 'pointer';
       rowDiv.dataset.rowNum = row;
       rowDiv.dataset.colNum = col;
       colDiv.appendChild(rowDiv);

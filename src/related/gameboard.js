@@ -26,6 +26,8 @@ function create64() {
 }
 
 function GameBoard() {
+  let playerHealth = 5;
+  let enemyHealth = 5;
   let isShipBuilt = false;
   const allShips = [];
   const ship4 = Ship(4);
@@ -81,6 +83,18 @@ function GameBoard() {
         return place.isSunk();
       }
     },
+    playerHit() {
+      playerHealth -= 1;
+    },
+    returnPlayerHealth() {
+      return playerHealth;
+    },
+    enemyHit() {
+      enemyHealth -= 1;
+    },
+    returnEnemyHealth() {
+      return enemyHealth;
+    },
     getBoard() {
       return board;
     },
@@ -108,9 +122,6 @@ function GameBoard() {
       return list;
     },
     spliceNum(num) {
-      console.log(list);
-      console.log('this');
-      console.log(num);
       list.splice(num, 1);
     },
     createEnemyBoard() {

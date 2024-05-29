@@ -84,6 +84,11 @@ function playerTurn(tile, board, name) {
     } else if (sunk === true) {
       messageContainer.textContent = `${name} sunken a ship!`;
       addClasses(sunk, tile, inTile, '.enemy-row');
+      board.enemyHit();
+
+      if (board.returnEnemyHealth() === 0) {
+        console.log('player win');
+      }
     } else {
       messageContainer.textContent = `${name} missed! try again`;
       addClasses(sunk, tile, inTile);
@@ -217,6 +222,7 @@ function enemyAttack(board, number, coordinates, allTiles, tile) {
   }
   if (tileLogic.isSunk()) {
     const status = tileLogic.isSunk();
+
     addClasses(status, tile, tileLogic);
   } else if ((tileLogic !== 0) & (tileLogic !== 2)) {
     tileLogic.hit();
@@ -232,6 +238,10 @@ function enemyAttack(board, number, coordinates, allTiles, tile) {
 
       addClasses(status, tile, tileLogic, '.player-row');
       board.spliceNum(number);
+      board.playerHit();
+      if (board.returnPlayerHealth() === 0) {
+        console.log('win');
+      }
       enemyTurn(board);
     }
   }
