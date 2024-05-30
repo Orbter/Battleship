@@ -554,32 +554,33 @@ body {
 
   .button-start {
     height: clamp(70px, 80%, 80px);
-    width: 25%;
+    width: clamp(100px, 24%, 240px);
     font-size: 1.7rem;
   }
   .button-start:active {
-    font-size: 1.1rem;
+    font-size: 1.6rem;
     height: clamp(49px, 79%, 79px);
-    width: 24%;
+    width: clamp(99px, 23%, 239px);
   }
 
   .button-rotate {
     height: clamp(50px, 80%, 80px);
-    width: 25%;
+    width: clamp(100px, 24%, 240px);
     font-size: 1.7rem;
   }
 
   .button-rotate:active {
-    font-size: 1.1rem;
+    font-size: 1.6rem;
     height: clamp(49px, 79%, 79px);
-    width: 24%;
+    width: clamp(99px, 23%, 239px);
   }
   .button-container-choose {
     height: 110px;
-    width: 70%;
+    width: 50%;
   }
   .win-container {
     width: 45%;
+    max-width: 850px;
   }
   .logo {
     font-size: 9rem;
@@ -591,6 +592,10 @@ body {
   .start-game {
     width: clamp(400px, 20%, 600px);
     font-size: 2rem;
+  }
+  .start-game:active {
+    width: clamp(399px, 19%, 599px);
+    font-size: 1.9rem;
   }
   .enter-name-container {
     height: 20vh;
@@ -609,6 +614,11 @@ body {
     width: clamp(300px, 50%, 500px);
     height: clamp(75px, 16%, 150px);
     font-size: 2rem;
+  }
+  .button-play-again:active {
+    width: clamp(299px, 49%, 499px);
+    height: clamp(74px, 15%, 149px);
+    font-size: 1.9rem;
   }
   .winMessage {
     font-size: 3.5rem;
