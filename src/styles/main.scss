@@ -21,6 +21,7 @@ body {
 }
 .welcome {
   font-size: 2.5rem;
+  font-family: 'Orbitron', sans-serif;
 }
 .logo {
   font-size: 16vw;
@@ -172,7 +173,7 @@ body {
   font-size: 1.5rem;
 }
 .message-container {
-  width: 70%;
+  width: 100%;
   height: clamp(60px, 10vh, 500px);
   border: 1px solid white;
   background-color: #13141d;
@@ -257,13 +258,14 @@ body {
 }
 .message {
   color: white;
-  font-size: 1.2rem;
+  font-size: 1.6rem;
   height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0;
+  text-align: center;
 }
 .player-row {
   z-index: 12; /* Ensure tiles are in front */
@@ -282,7 +284,6 @@ body {
   height: 40%;
   align-items: center;
   justify-content: space-evenly;
-  width: 85%;
   width: 85%;
   position: absolute;
   top: 50%;
@@ -310,4 +311,306 @@ body {
 }
 .opponent-main {
   z-index: 8;
+}
+.computer-board {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (min-width: 425px) and (max-width: 768px) {
+  .popUp {
+    height: fit-content;
+  }
+  .square-choose {
+    width: clamp(50px, 5vw, 500px);
+    height: clamp(50px, 5vw, 500px);
+  }
+  .square {
+    width: clamp(50px, 5vw, 500px);
+    height: clamp(50px, 5vw, 500px);
+  }
+  .del {
+    width: clamp(50px, 5vw, 500px);
+    height: clamp(50px, 5vw, 500px);
+  }
+  .carrier {
+    width: clamp(200px, 20vw, 500px);
+    height: clamp(50px, 5vw, 500px);
+  }
+  .battle-ship {
+    width: clamp(150px, 15vw, 500px);
+    height: clamp(50px, 5vw, 500px);
+  }
+  .submarine {
+    width: clamp(100px, 10vw, 500px);
+    height: clamp(50px, 5vw, 500px);
+  }
+  .cruiser {
+    width: clamp(100px, 10vw, 500px);
+    height: clamp(50px, 5vw, 500px);
+  }
+  .destroyer {
+    width: clamp(100px, 5vw, 500px);
+    height: clamp(50px, 5vw, 500px);
+  }
+  .ship-container {
+    height: 350px;
+  }
+
+  .button-container-choose {
+    height: 70px;
+  }
+  .button-start {
+    height: clamp(50px, 80%, 80px);
+    width: 35%;
+  }
+  .button-start:active {
+    font-size: 1.1rem;
+    height: clamp(49px, 79%, 79px);
+    width: 34%;
+  }
+
+  .button-rotate {
+    height: clamp(50px, 80%, 80px);
+    width: 35%;
+  }
+
+  .button-rotate:active {
+    font-size: 1.1rem;
+    height: clamp(49px, 79%, 79px);
+    width: 34%;
+  }
+
+  .message-container {
+    width: clamp(425px, 80%, 500px);
+  }
+  .message {
+    font-size: 1.8rem;
+  }
+  .win-container {
+    height: 40%;
+    width: 65%;
+  }
+  .start-game {
+    font-size: 1.8rem;
+  }
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+  .main-board {
+    flex-direction: row;
+    align-items: top;
+    width: 100%;
+    height: 60%;
+  }
+  .square {
+    width: clamp(50px, 5vw, 500px);
+    height: clamp(50px, 5vw, 500px);
+  }
+  .square-choose {
+    width: clamp(50px, 5vw, 500px);
+    height: clamp(50px, 5vw, 500px);
+  }
+  .message-container {
+    width: 40vw;
+    height: 13vw;
+  }
+  .message {
+    font-size: 2rem;
+  }
+  .main-div {
+    justify-content: space-around;
+  }
+  .computer-board {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    justify-content: center;
+    align-items: center;
+    height: 20%;
+    gap: 30px;
+  }
+  .del {
+    width: clamp(50px, 5vw, 500px);
+    height: clamp(50px, 5vw, 500px);
+  }
+  .carrier {
+    width: clamp(200px, 20vw, 500px);
+    height: clamp(50px, 5vw, 500px);
+  }
+  .battle-ship {
+    width: clamp(150px, 15vw, 500px);
+    height: clamp(50px, 5vw, 500px);
+  }
+  .submarine {
+    width: clamp(100px, 10vw, 500px);
+    height: clamp(50px, 5vw, 500px);
+  }
+  .cruiser {
+    width: clamp(100px, 10vw, 500px);
+    height: clamp(50px, 5vw, 500px);
+  }
+  .destroyer {
+    width: clamp(50px, 5vw, 500px);
+    height: clamp(50px, 5vw, 500px);
+  }
+
+  .button-start {
+    height: clamp(50px, 80%, 80px);
+    width: 25%;
+  }
+  .button-start:active {
+    font-size: 1.1rem;
+    height: clamp(49px, 79%, 79px);
+    width: 24%;
+  }
+
+  .button-rotate {
+    height: clamp(50px, 80%, 80px);
+    width: 25%;
+  }
+
+  .button-rotate:active {
+    font-size: 1.1rem;
+    height: clamp(49px, 79%, 79px);
+    width: 24%;
+  }
+  .button-container-choose {
+    height: 75px;
+    width: 70%;
+  }
+  .win-container {
+    width: 65%;
+  }
+  .start-game {
+    width: clamp(400px, 20%, 600px);
+    font-size: 2rem;
+  }
+  #name {
+    width: 50%;
+    height: 80px;
+  }
+}
+@media (min-width: 1025px) {
+  .main-board {
+    flex-direction: row;
+    align-items: top;
+    width: 100%;
+    height: 60%;
+  }
+  .square {
+    width: clamp(50px, 5vw, 72px);
+    height: clamp(50px, 5vw, 72px);
+  }
+  .square-choose {
+    width: clamp(50px, 5vw, 72px);
+    height: clamp(50px, 5vw, 72px);
+  }
+  .message-container {
+    width: 40vw;
+    height: 13vw;
+  }
+  .message {
+    font-size: 2rem;
+  }
+  .main-div {
+    justify-content: space-around;
+  }
+  .computer-board {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    justify-content: center;
+    align-items: center;
+    height: 20%;
+    gap: 30px;
+  }
+  .del {
+    width: clamp(50px, 5vw, 72px);
+    height: clamp(50px, 5vw, 72px);
+  }
+  .carrier {
+    width: clamp(200px, 20vw, 288px);
+    height: clamp(50px, 5vw, 72px);
+  }
+  .battle-ship {
+    width: clamp(150px, 15vw, 216px);
+    height: clamp(50px, 5vw, 72px);
+  }
+  .submarine {
+    width: clamp(100px, 10vw, 144px);
+    height: clamp(50px, 5vw, 72px);
+  }
+  .cruiser {
+    width: clamp(100px, 10vw, 144px);
+    height: clamp(50px, 5vw, 72px);
+  }
+  .destroyer {
+    width: clamp(50px, 5vw, 72px);
+    height: clamp(50px, 5vw, 72px);
+  }
+
+  .button-start {
+    height: clamp(70px, 80%, 80px);
+    width: 25%;
+    font-size: 1.7rem;
+  }
+  .button-start:active {
+    font-size: 1.1rem;
+    height: clamp(49px, 79%, 79px);
+    width: 24%;
+  }
+
+  .button-rotate {
+    height: clamp(50px, 80%, 80px);
+    width: 25%;
+    font-size: 1.7rem;
+  }
+
+  .button-rotate:active {
+    font-size: 1.1rem;
+    height: clamp(49px, 79%, 79px);
+    width: 24%;
+  }
+  .button-container-choose {
+    height: 110px;
+    width: 70%;
+  }
+  .win-container {
+    width: 45%;
+  }
+  .logo {
+    font-size: 9rem;
+  }
+  #name {
+    width: 40%;
+    height: 100px;
+  }
+  .start-game {
+    width: clamp(400px, 20%, 600px);
+    font-size: 2rem;
+  }
+  .enter-name-container {
+    height: 20vh;
+  }
+  .label {
+    font-size: 2.3rem;
+  }
+  .welcome {
+    font-size: 4rem;
+  }
+  .ship-container {
+    flex-direction: row;
+    height: 20%;
+  }
+  .button-play-again {
+    width: clamp(300px, 50%, 500px);
+    height: clamp(75px, 16%, 150px);
+    font-size: 2rem;
+  }
+  .winMessage {
+    font-size: 3.5rem;
+  }
 }

@@ -203,7 +203,6 @@ function removeColor() {
 
 function canYouPlay(board, name) {
   const div = document.querySelector('.ship-container');
-  console.log(board.getBoard());
   if (div.children.length === 0) StartingGame(board, name);
   else return;
 }

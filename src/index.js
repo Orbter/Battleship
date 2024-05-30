@@ -8,16 +8,18 @@ function homepage() {
   const homePhoto = document.querySelector('.home-page');
   homePhoto.style.backgroundImage = `url(${battleship})`;
   const logo = document.querySelector('.logo');
-  const title = document.querySelector('.title');
+  const mainScreen = document.querySelector('.main-div');
 
   logo.style.backgroundImage = `url(${metal})`;
   logo.style.webkitBackgroundClip = 'text';
   logo.style.backgroundClip = 'text';
+  mainScreen.style.display = 'none';
 }
 function startingTheGame() {
   const gameForm = document.querySelector('.start-game');
   gameForm.addEventListener('click', (event) => {
     event.preventDefault();
+    const mainScreen = document.querySelector('.main-div');
 
     const inputElement = document.getElementById('name');
     const label = document.querySelector('.label');
@@ -26,6 +28,7 @@ function startingTheGame() {
       label.textContent = 'please enter a real Name';
     } else {
       const inputValue = inputElement.value;
+      mainScreen.style.display = 'flex';
       createPlayerChoice(inputValue);
     }
   });
