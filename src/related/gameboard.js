@@ -29,6 +29,7 @@ function GameBoard() {
   let playerHealth = 5;
   let enemyHealth = 5;
   let isShipBuilt = false;
+  let playerName;
   const allShips = [];
   const ship4 = Ship(4);
   const ship3 = Ship(3);
@@ -41,6 +42,12 @@ function GameBoard() {
   const board = createMatrix(8, 8);
   const enemyBoard = createMatrix(8, 8);
   return {
+    savePlayerName(name) {
+      playerName = name;
+    },
+    returnName() {
+      return playerName;
+    },
     placeShip(coordinates, ship, col) {
       const lengthShip = ship.getLength();
 

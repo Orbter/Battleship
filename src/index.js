@@ -14,7 +14,22 @@ function homepage() {
   logo.style.webkitBackgroundClip = 'text';
   logo.style.backgroundClip = 'text';
 }
-homepage();
-createPlayerChoice('amit');
+function startingTheGame() {
+  const gameForm = document.querySelector('.start-game');
+  gameForm.addEventListener('click', (event) => {
+    event.preventDefault();
 
-const opponentBoard = document.querySelectorAll('.enemy-row');
+    const inputElement = document.getElementById('name');
+    const label = document.querySelector('.label');
+    if (inputElement.value.trim() === '') {
+      inputElement.style.borderColor = '#c1121f';
+      label.textContent = 'please enter a real Name';
+    } else {
+      const inputValue = inputElement.value;
+      createPlayerChoice(inputValue);
+    }
+  });
+}
+
+homepage();
+startingTheGame();

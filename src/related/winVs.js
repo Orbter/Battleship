@@ -1,6 +1,6 @@
 import { createPlayerChoice } from './chooseVS';
 
-function WinScreen(name) {
+function WinScreen(name, playerName) {
   const overlay = document.querySelector('.overlay');
   const winContainer = document.createElement('div');
   const winMessage = document.createElement('h2');
@@ -20,7 +20,7 @@ function WinScreen(name) {
   body.appendChild(winContainer);
 
   playAgainButton.addEventListener('click', () => {
-    resetGame(name);
+    resetGame(playerName);
   });
 }
 
@@ -30,7 +30,7 @@ function resetGame(name) {
   const popUp = document.querySelector('.popUp');
   const playerBoard = document.querySelector('.player-board');
   const opponentBoard = document.querySelector('.opponent-board');
-
+  const MessageContainer = document.querySelector('.message');
   popUp.remove();
   overlay.remove();
   winContainer.remove();
@@ -40,6 +40,7 @@ function resetGame(name) {
   while (opponentBoard.firstChild) {
     opponentBoard.removeChild(opponentBoard.firstChild);
   }
+  MessageContainer.textContent = '';
   createPlayerChoice(name);
 }
 

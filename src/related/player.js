@@ -11,7 +11,7 @@ function Player(name) {
 
 function createPlayerChoiceLogic(name) {
   const gameBoard = GameBoard(name);
-
+  gameBoard.savePlayerName(name);
   return gameBoard;
 }
 

@@ -88,7 +88,7 @@ function playerTurn(tile, board, name) {
       board.enemyHit();
 
       if (board.returnEnemyHealth() === 0) {
-        WinScreen(name);
+        WinScreen(name, name);
       }
     } else {
       messageContainer.textContent = `${name} missed! try again`;
@@ -241,7 +241,7 @@ function enemyAttack(board, number, coordinates, allTiles, tile) {
       board.spliceNum(number);
       board.playerHit();
       if (board.returnPlayerHealth() === 0) {
-        WinScreen('opponent');
+        WinScreen('opponent', board.returnName());
       }
       enemyTurn(board);
     }
@@ -324,4 +324,3 @@ function StartingGame(board, name) {
 }
 
 export { createPLayers, StartingGame, calculateNumber };
-//debaging
