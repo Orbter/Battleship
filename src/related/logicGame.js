@@ -1,6 +1,7 @@
 import { Player } from './player';
 import { createBoardVs, enemyBoardVs, updatePlayerBoardVs } from './board';
 import del from '../photos/delete.png';
+import { WinScreen } from './winVs';
 
 function getRandomNumber64() {
   return Math.floor(Math.random() * 64);
@@ -87,7 +88,7 @@ function playerTurn(tile, board, name) {
       board.enemyHit();
 
       if (board.returnEnemyHealth() === 0) {
-        console.log('player win');
+        WinScreen(name);
       }
     } else {
       messageContainer.textContent = `${name} missed! try again`;
@@ -240,7 +241,7 @@ function enemyAttack(board, number, coordinates, allTiles, tile) {
       board.spliceNum(number);
       board.playerHit();
       if (board.returnPlayerHealth() === 0) {
-        console.log('win');
+        WinScreen('opponent');
       }
       enemyTurn(board);
     }

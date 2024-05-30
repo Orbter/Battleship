@@ -96,9 +96,9 @@ body {
   display: flex;
   flex-direction: column;
   background-color: #494953;
-  height: 70%; /* Adjusted height to include space for ship-container */
+  height: 70%;
   align-items: center;
-  justify-content: space-between; /* Changed to space-between for better alignment */
+  justify-content: space-between;
   width: 85%;
   position: absolute;
   top: 50%;
@@ -106,8 +106,8 @@ body {
   transform: translate(-50%, -50%);
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
-  border-bottom-left-radius: 12px; /* Added for complete border radius */
-  border-bottom-right-radius: 12px; /* Added for complete border radius */
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
   padding: 10px;
   padding-bottom: 0;
 }
@@ -272,4 +272,37 @@ body {
 }
 .col {
   z-index: 11;
+}
+.win-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #494953;
+  height: 40%;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 85%;
+  width: 85%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+.winMessage {
+  color: white;
+  font-size: 3rem;
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+}
+.button-play-again {
+  width: clamp(155px, 50%, 300px);
+  height: clamp(45px, 11%, 70px);
+  background-color: #06bc68;
+}
+.button-play-again:active {
+  width: clamp(153px, 49%, 298px);
+  height: clamp(44px, 10%, 69px);
 }
