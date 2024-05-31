@@ -5,7 +5,7 @@
 Battleship Game is a web-based implementation of the classic board game, developed using JavaScript, Webpack, and modern coding practices. This project features a sophisticated enemy attack algorithm utilizing recursion and factory functions, ensuring a dynamic and challenging gameplay experience. Additionally, the project includes seamless connections between different pages of the game interface.
 
 ## Project Demo
-<img width="1054" alt="photoForBattleShip" src="https://github.com/Orbter/Battleship/assets/94376239/29d0f33e-4c3d-4b2d-98e8-e7bcd536bfef">
+[![photoForBattleShip](https://github.com/Orbter/Battleship/assets/94376239/29d0f33e-4c3d-4b2d-98e8-e7bcd536bfef)](https://orbter.github.io/Battleship/)
 
 Click the image above to try out the live demo!
 
