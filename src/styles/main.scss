@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@400..900&family=Pacifico&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 body {
-  height: 100vh;
+  background-color: #494953;
+
   margin: 0;
 }
 .home-page {
@@ -501,12 +502,12 @@ body {
     height: 60%;
   }
   .square {
-    width: clamp(50px, 5vw, 72px);
-    height: clamp(50px, 5vw, 72px);
+    width: clamp(50px, 4vw, 72px);
+    height: clamp(50px, 4vw, 72px);
   }
   .square-choose {
-    width: clamp(50px, 5vw, 72px);
-    height: clamp(50px, 5vw, 72px);
+    width: clamp(50px, 4vw, 72px);
+    height: clamp(50px, 4vw, 72px);
   }
   .message-container {
     width: 40vw;
@@ -516,7 +517,7 @@ body {
     font-size: 2rem;
   }
   .main-div {
-    justify-content: space-around;
+    //justify-content: space-around;
   }
   .computer-board {
     display: flex;
@@ -528,28 +529,28 @@ body {
     gap: 30px;
   }
   .del {
-    width: clamp(50px, 5vw, 72px);
-    height: clamp(50px, 5vw, 72px);
+    width: clamp(50px, 4vw, 72px);
+    height: clamp(50px, 4vw, 72px);
   }
   .carrier {
-    width: clamp(200px, 20vw, 288px);
-    height: clamp(50px, 5vw, 72px);
+    width: clamp(200px, 16vw, 288px);
+    height: clamp(50px, 4vw, 72px);
   }
   .battle-ship {
-    width: clamp(150px, 15vw, 216px);
+    width: clamp(150px, 12vw, 216px);
     height: clamp(50px, 5vw, 72px);
   }
   .submarine {
-    width: clamp(100px, 10vw, 144px);
-    height: clamp(50px, 5vw, 72px);
+    width: clamp(100px, 8vw, 144px);
+    height: clamp(50px, 4vw, 72px);
   }
   .cruiser {
-    width: clamp(100px, 10vw, 144px);
-    height: clamp(50px, 5vw, 72px);
+    width: clamp(100px, 8vw, 144px);
+    height: clamp(50px, 4vw, 72px);
   }
   .destroyer {
-    width: clamp(50px, 5vw, 72px);
-    height: clamp(50px, 5vw, 72px);
+    width: clamp(50px, 4vw, 72px);
+    height: clamp(50px, 4vw, 72px);
   }
 
   .button-start {
@@ -564,7 +565,7 @@ body {
   }
 
   .button-rotate {
-    height: clamp(50px, 80%, 80px);
+    height: clamp(70px, 80%, 80px);
     width: clamp(100px, 24%, 240px);
     font-size: 1.7rem;
   }
